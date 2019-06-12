@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D260CD322B108C500C7A70A /* CIFilters.json in Resources */ = {isa = PBXBuildFile; fileRef = 0D260CD022B108C500C7A70A /* CIFilters.json */; };
+		0D260CD422B108C500C7A70A /* File.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D260CD122B108C500C7A70A /* File.strings */; };
+		0D260CD522B108C500C7A70A /* Filters in Resources */ = {isa = PBXBuildFile; fileRef = 0D260CD222B108C500C7A70A /* Filters */; };
 		0D9466FB22B09F2500F8F396 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9466FA22B09F2500F8F396 /* AppDelegate.m */; };
 		0D94670122B09F2500F8F396 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D9466FF22B09F2500F8F396 /* Main.storyboard */; };
 		0D94670422B09F2500F8F396 /* XWColorScope.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0D94670222B09F2500F8F396 /* XWColorScope.xcdatamodeld */; };
@@ -42,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D260CD022B108C500C7A70A /* CIFilters.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CIFilters.json; sourceTree = "<group>"; };
+		0D260CD122B108C500C7A70A /* File.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = File.strings; sourceTree = "<group>"; };
+		0D260CD222B108C500C7A70A /* Filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Filters; sourceTree = "<group>"; };
 		0D9466F622B09F2500F8F396 /* XWColorScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XWColorScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D9466F922B09F2500F8F396 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		0D9466FA22B09F2500F8F396 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -99,6 +105,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D260CD722B108D600C7A70A /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				0D260CD022B108C500C7A70A /* CIFilters.json */,
+				0D260CD122B108C500C7A70A /* File.strings */,
+				0D260CD222B108C500C7A70A /* Filters */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		0D9466ED22B09F2500F8F396 = {
 			isa = PBXGroup;
 			children = (
@@ -126,16 +142,17 @@
 				0D9466FA22B09F2500F8F396 /* AppDelegate.m */,
 				0D94673222B09F6F00F8F396 /* HomeViewController.h */,
 				0D94673322B09F6F00F8F396 /* HomeViewController.m */,
+				0D94673622B0A06E00F8F396 /* UIImage+X.h */,
+				0D94673722B0A06E00F8F396 /* UIImage+X.m */,
+				0D94673922B0A09E00F8F396 /* Filtrr */,
 				0D94673122B09F4600F8F396 /* CIFilters */,
 				0D9466FF22B09F2500F8F396 /* Main.storyboard */,
 				0D94670522B09F2500F8F396 /* Assets.xcassets */,
 				0D94670722B09F2500F8F396 /* LaunchScreen.storyboard */,
+				0D94670B22B09F2500F8F396 /* main.m */,
 				0D94670A22B09F2500F8F396 /* Info.plist */,
 				0D94674322B0A5EB00F8F396 /* PrefixHeader.pch */,
-				0D94670B22B09F2500F8F396 /* main.m */,
-				0D94673622B0A06E00F8F396 /* UIImage+X.h */,
-				0D94673722B0A06E00F8F396 /* UIImage+X.m */,
-				0D94673922B0A09E00F8F396 /* Filtrr */,
+				0D260CD722B108D600C7A70A /* Resource */,
 				0D94670222B09F2500F8F396 /* XWColorScope.xcdatamodeld */,
 			);
 			path = XWColorScope;
@@ -286,9 +303,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0D260CD522B108C500C7A70A /* Filters in Resources */,
 				0D94670922B09F2500F8F396 /* LaunchScreen.storyboard in Resources */,
 				0D94670622B09F2500F8F396 /* Assets.xcassets in Resources */,
 				0D94670122B09F2500F8F396 /* Main.storyboard in Resources */,
+				0D260CD322B108C500C7A70A /* CIFilters.json in Resources */,
+				0D260CD422B108C500C7A70A /* File.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
