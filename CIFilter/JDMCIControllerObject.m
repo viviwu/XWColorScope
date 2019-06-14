@@ -103,9 +103,7 @@ static NSString *CI_NAME = @"ciName";
     for (UIView *view in self.superView.subviews) {
         [view removeFromSuperview];
     }
-
-    
-    
+ 
 }
 
 -(void)performLookupForCIFilterInfo
@@ -251,15 +249,15 @@ static NSString *CI_NAME = @"ciName";
     
     // ,kCICategoryVideo
     // ,kCICategoryStillImage
-    // ,kCICategoryBuiltIn
+    // ,kCICategoryBuiltIn  //内建内建
     // ,kCICategoryFilterGenerator;
 
     NSMutableDictionary *filterCatagories = [[NSMutableDictionary alloc]init];
    
     for ( NSString *catagory in cats) {
     
-        
-        [filterCatagories setValue:[CIFilter filterNamesInCategories:@[catagory]] forKey:catagory];
+        NSArray<NSString *> * filterNames = [CIFilter filterNamesInCategories:@[catagory]];
+        [filterCatagories setValue:filterNames forKey:catagory];
     }
     
     self.tableViewData = [NSDictionary dictionaryWithDictionary:filterCatagories];
@@ -668,22 +666,7 @@ static NSString *CI_NAME = @"ciName";
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
 #pragma mark - Page Curl Transition Helpers
 
@@ -731,14 +714,10 @@ static NSString *CI_NAME = @"ciName";
     CIContext *context = [CIContext contextWithOptions:nil];
     UIImage *flippedImage = [UIImage imageWithCGImage:[context createCGImage:c fromRect:c.extent]];
     
-    CIImage *ci_image = [CIImage imageWithCGImage:flippedImage.CGImage];
+//    CIImage *ci_image = [CIImage imageWithCGImage:flippedImage.CGImage];
     
     
     return flippedImage;
-    
-    
-    
-    
     
     
 //    UIGraphicsBeginImageContext(CGSizeMake(image.size.width*3, image.size.height*3));

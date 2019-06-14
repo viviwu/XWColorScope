@@ -5,15 +5,21 @@
 //  Created by vivi wu on 2019/6/12.
 //  Copyright © 2019 vivi wu. All rights reserved.
 //
-
+#import <MobileCoreServices/UTCoreTypes.h>
 #import "CIFitlerDetailViewController.h"
+#import "JDMUtility.h"
 
-@interface CIFitlerDetailViewController ()
+@interface CIFitlerDetailViewController ()<UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property UIImage *image;
+@property UIImage *editImage;
+//@property UIImage *fullsizeImage;
 
 //@property (nonatomic, strong) CIContext  *context;
 @property (nonatomic, strong) CIFilter* filter;
 @property (nonatomic, strong) UIImage * originImage;
 
+@property (weak, nonatomic) IBOutlet UIImageView *backingBlurView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UITextView * textView;
 @property (weak, nonatomic) IBOutlet UILabel* indicator;
@@ -27,9 +33,6 @@
     _indicator.text = [NSString stringWithFormat:@"%.1f", sender.value];
 }
 
-- (IBAction)pickAssets:(id)sender {
-    
-}
 
 - (IBAction)showFilterInfo:(UIButton*)sender forEvent:(UIEvent *)event
 { 
@@ -43,11 +46,56 @@
     }
 }
 
+- (IBAction)pickAssets:(id)sender {
+    UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    imagePicker.mediaTypes = @[(NSString *) kUTTypeImage];
+    imagePicker.delegate = self;    //mediaTypes:<kUTTypeGIF kUTTypeMovie>
+    imagePicker.allowsEditing = YES;
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+#pragma mark-- UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"MediaWithInfo: %@", info);
+    self.originImage = info[UIImagePickerControllerEditedImage];
+    [self configureImage:self.originImage];
+}
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)configureImage:(UIImage*)image
+{
+    UIImage *resizedImage = nil;
+    
+    if (image.size.width > image.size.height) {
+        //NSLog(@"Wider");
+        resizedImage = [image resizedImageByWidth:(int)self.view.frame.size.width];
+    } else {
+        //NSLog(@"Taller");
+        resizedImage = [image resizedImageByHeight: (int)self.view.frame.size.width];
+    }
+    NSString *resizeString = [NSString stringWithFormat:@"%ix%i#",(int)self.view.frame.size.width,(int)self.view.frame.size.width];
+    
+    UIImage *editResizedImage = [image resizedImageByMagick:resizeString];
+    self.editImage = editResizedImage;
+    NSLog(@"self.editImage.size: %@", NSStringFromCGSize(self.editImage.size));
+    
+    UIImage *blurredImage = [image applyLightEffect];
+    self.image = resizedImage;
+    self.imageView.image = self.image;
+    self.backingBlurView.image = blurredImage;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.originImage = [UIImage imageNamed:@"timg.jpeg"];
     self.imageView.image = self.originImage;
+    [self configureImage:self.originImage];
     /*
 #if 1
     //1.创建基于CPU的CIContext对象
@@ -79,11 +127,11 @@
     // 将UIImage转换成CIImage
     CIImage *ciImage = [[CIImage alloc] initWithImage:self.originImage];
     // 创建滤镜
-    CIFilter *filter = [CIFilter filterWithName:self.filterName keysAndValues: kCIInputImageKey, ciImage, nil];
+    CIFilter *filter = [CIFilter filterWithName:self.filterName withInputParameters:@{kCIInputImageKey: ciImage}];
     [filter setDefaults];
     
     // 获取绘制上下文
-    CIContext *context = [CIContext contextWithOptions:@{kCIContextUseSoftwareRenderer : @(YES)}];
+    CIContext *context = [CIContext contextWithOptions: @{kCIContextUseSoftwareRenderer : @(YES)}];//软件渲染 既CPU处理
     // 渲染并输出CIImage
     CIImage *outputImage = [filter outputImage];
     // 创建CGImage句柄
@@ -92,8 +140,12 @@
     UIImage * newImage = [UIImage imageWithCGImage:cgImage];
     // 释放CGImage句柄
     CGImageRelease(cgImage);
+    if (newImage) {
+        self.imageView.image = newImage;
+    }else{
+        NSLog(@"[%@]outputImage is %@", self.filterName, newImage);
+    }
     
-    self.imageView.image = newImage;
 }
 
 /*

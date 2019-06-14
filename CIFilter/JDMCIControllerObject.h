@@ -19,11 +19,7 @@
 @optional
 -(void)didUpdateInputParameters:(NSDictionary*)newParameters;
 @end
-
-
-
-
-
+ 
 
 @interface JDMCIControllerObject : NSObject < JDMColorControlObjectDelegate, JDMNumericControlObjectDelegate, JDMCIVectorControlObjectDelegate, JDMBarCodeControlObjectDelegate >
 

@@ -14,7 +14,7 @@
 @import OpenGLES;
 
 
-@interface ViewController ()< UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UISearchBarDelegate ,JDMCIControllerObjectDelegate >
+@interface ViewController ()< UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UISearchBarDelegate ,JDMCIControllerObjectDelegate , UINavigationControllerDelegate>
 @property CALayer *filterLayer;
 
 
@@ -102,7 +102,7 @@
     [self setupBackingBlur];
     [self setupImageView];
     [self setupTableView];
-    // [self setupSearchBar];
+     [self setupSearchBar];
     
     [self setupControllerView];
     [self setupGLContext];
@@ -231,9 +231,9 @@
         resultImage = [resultImage imageByApplyingTransform: scaleTransform];
     }
 
-    
-    if ([self.controller.filterName isEqualToString:@"CIPDF417BarcodeGenerator"] || [self.controller.filterName isEqualToString:@"CICode128BarcodeGenerator"] ) {
-        
+    //条形码
+    if ([self.controller.filterName isEqualToString:@"CIPDF417BarcodeGenerator"] || [self.controller.filterName isEqualToString:@"CICode128BarcodeGenerator"] )
+    {
         CGAffineTransform scaleTransform = CGAffineTransformMakeScale(5, 5); // Scale by 5 times
         resultImage = [resultImage imageByApplyingTransform: scaleTransform];
 
@@ -247,6 +247,7 @@
 
 }
 
+#if 0
 -(void)nsHipsterCIFilter
 {
     UIImage *originalImage = self.fullsizeImage;
@@ -255,25 +256,25 @@
     CIImage *outputImage = nil;
     
     CGAffineTransform transform = CGAffineTransformIdentity;
-    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];
+    CIFilter *clampFilter = [CIFilter filterWithName:@"CIAffineClamp"];//仿射夹
     [clampFilter setDefaults];
     [clampFilter setValue:[NSValue valueWithBytes:&transform objCType:@encode(CGAffineTransform)] forKeyPath:@"inputTransform"];
     [clampFilter setValue:inputImage forKeyPath:kCIInputImageKey];
     outputImage = [clampFilter outputImage];
     
     //CGFloat darkness = 0.5f;
-    CIFilter *blackColorGenerator = [CIFilter filterWithName:@"CIConstantColorGenerator"];
+    CIFilter *blackColorGenerator = [CIFilter filterWithName:@"CIConstantColorGenerator"];//恒定颜色
     CIColor *blackColor = [CIColor colorWithCGColor:[UIColor black50PercentColor].CGColor];
     [blackColorGenerator setValue:blackColor forKey:kCIInputColorKey];
     
-    CIFilter *compositeFilter = [CIFilter filterWithName:@"CIDarkenBlendMode"];
+    CIFilter *compositeFilter = [CIFilter filterWithName:@"CIDarkenBlendMode"];//变暗混合模式
     [compositeFilter setDefaults];
     [compositeFilter setValue:[blackColorGenerator outputImage] forKey:kCIInputImageKey];
     [compositeFilter setValue:outputImage forKey:kCIInputBackgroundImageKey];
     outputImage = [compositeFilter outputImage];
     
     CGFloat radius = 2.0f;
-    CIFilter *blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    CIFilter *blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"]; //高斯模糊
     [blurFilter setDefaults];
     [blurFilter setValue:@(radius) forKey:kCIInputRadiusKey];
     [blurFilter setValue:outputImage forKey:kCIInputImageKey];
@@ -286,6 +287,7 @@
      
     CFRelease(imageRef);
 }
+#endif
 
 -(void)saveHighResImageWithParameters:(NSDictionary *)inputParameters
 {
@@ -339,12 +341,9 @@
 }
 
 
-#pragma mark - TableView
+#pragma mark - TableView Delegate
 
-#pragma mark - UITableViewDelegate
-
-- (void)tableView:(UITableView *)tableView
-didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
    NSString *cellStringHit = [[self.controller.cellSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
@@ -370,7 +369,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     } else {
         return [[self.controller.cellSections objectAtIndex:section] count];
     }
-    
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -398,7 +396,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     if (self.isSearching == YES) {
         cell.textLabel.text = [self.searchedResults objectAtIndex:indexPath.row];
     } else {
-        
         cell.textLabel.text = [[self.controller.cellSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
 }
@@ -576,10 +573,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.fullsizeImage = image;
     
-    
-    
-   
-    
     UIImage *resizedImage;
     
     if (image.size.width > image.size.height) {
@@ -601,9 +594,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
     
     UIImage *blurredImage = [image applyLightEffect];
     
-
-    
-    
+ 
     self.image = resizedImage;
     self.imageView.image = self.image;
     self.backingBlurView.image = blurredImage;
@@ -679,9 +670,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 
 
 
--(void)imagePickerController:
-(UIImagePickerController *)picker
-didFinishPickingMediaWithInfo:(NSDictionary *)info
+-(void)imagePickerController: (UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     // Code here to work with media
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -705,11 +694,9 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
-    UIAlertView *alert;
-    
     // Unable to save the image
     if (error) {
-        alert = [[UIAlertView alloc] initWithTitle:@"Error"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                            message:@"Unable to save image to Photo Album."
                                           delegate:self cancelButtonTitle:@"Ok"
                                  otherButtonTitles:nil];
@@ -735,10 +722,10 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 
 
-
+#pragma mark --Shine Stuff / Brightness 闪亮 / 聚光灯
 -(void)doNewShineStuff
 {
-    CIImage *inputImage = [CIImage imageWithCGImage:(CGImageRef)(self.filterLayer.contents)];
+//    CIImage *inputImage = [CIImage imageWithCGImage: (CGImageRef)(self.filterLayer.contents)];
     
     CIVector *lightPoint = [CIVector vectorWithX:200 Y:200 Z:0];
     CIVector *lightPosition = [CIVector vectorWithX:400 Y:600 Z:150];
@@ -770,7 +757,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
 }
 
-
+#pragma mark -- Lenticular Halo透镜状光环
 -(void)doCILenticularHaloGeneratorStuff
 {
 //    CIImage *inputImage = [CIImage imageWithCGImage:(CGImageRef)(self.filterLayer.contents)];
@@ -830,7 +817,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     return [self makeCheckerBoardImage];
 }
 
-#pragma mark - UIimage Flipping
+#pragma mark - UIimage Flipping (翻转图像)
 - (UIImage *)flipImage:(UIImage *)image
 {
     
@@ -854,7 +841,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
 }
 
-#pragma mark - Radial Gradient Image Creation
+#pragma mark - Radial Gradient Image Creation(径向渐变)
 -(UIImage *)makeRadialGradientImage
 {
     CGFloat w = self.view.frame.size.width;
@@ -891,7 +878,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
     
 }
 
-#pragma mark - CheckerBoard Image
+#pragma mark - CheckerBoard Image (西洋跳棋盘)
 -(UIImage*)makeCheckerBoardImage
 {
     CGFloat w = self.view.frame.size.width;
@@ -927,15 +914,7 @@ didFinishPickingMediaWithInfo:(NSDictionary *)info
 
 }
 
-
-
-
-
-
-
-
-
-
+ 
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
