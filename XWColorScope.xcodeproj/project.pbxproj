@@ -41,6 +41,7 @@
 		0D1D74C122B39DA5001A2259 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1D749E22B39DA5001A2259 /* XMLDictionary.m */; };
 		0D1D74C222B39DA5001A2259 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1D74A222B39DA5001A2259 /* UIImage+ImageEffects.m */; };
 		0D1D74C322B39DA5001A2259 /* JDMGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1D74A322B39DA5001A2259 /* JDMGradientLayer.m */; };
+		0D1D753A22B4855F001A2259 /* XWCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1D753922B4855F001A2259 /* XWCameraViewController.m */; };
 		0D260CD422B108C500C7A70A /* File.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0D260CD122B108C500C7A70A /* File.strings */; };
 		0D260CD522B108C500C7A70A /* Filters in Resources */ = {isa = PBXBuildFile; fileRef = 0D260CD222B108C500C7A70A /* Filters */; };
 		0D9466FB22B09F2500F8F396 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9466FA22B09F2500F8F396 /* AppDelegate.m */; };
@@ -150,6 +151,8 @@
 		0D1D74A122B39DA5001A2259 /* Colours.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colours.h; sourceTree = "<group>"; };
 		0D1D74A222B39DA5001A2259 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		0D1D74A322B39DA5001A2259 /* JDMGradientLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMGradientLayer.m; sourceTree = "<group>"; };
+		0D1D753822B4855F001A2259 /* XWCameraViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XWCameraViewController.h; sourceTree = "<group>"; };
+		0D1D753922B4855F001A2259 /* XWCameraViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XWCameraViewController.m; sourceTree = "<group>"; };
 		0D260CD122B108C500C7A70A /* File.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = File.strings; sourceTree = "<group>"; };
 		0D260CD222B108C500C7A70A /* Filters */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Filters; sourceTree = "<group>"; };
 		0D9466F622B09F2500F8F396 /* XWColorScope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = XWColorScope.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -347,6 +350,8 @@
 				0D9466FA22B09F2500F8F396 /* AppDelegate.m */,
 				0D94673222B09F6F00F8F396 /* HomeViewController.h */,
 				0D94673322B09F6F00F8F396 /* HomeViewController.m */,
+				0D1D753822B4855F001A2259 /* XWCameraViewController.h */,
+				0D1D753922B4855F001A2259 /* XWCameraViewController.m */,
 				0D94673122B09F4600F8F396 /* CIFilters */,
 				0D94673922B0A09E00F8F396 /* Filtrr */,
 				0D9466FF22B09F2500F8F396 /* Main.storyboard */,
@@ -571,6 +576,7 @@
 				0D1D74C022B39DA5001A2259 /* BaseGeometry.m in Sources */,
 				0D1D74BB22B39DA5001A2259 /* _FBTweakColorViewControllerRGBDataSource.m in Sources */,
 				0D1D74BF22B39DA5001A2259 /* BezierUtilities.m in Sources */,
+				0D1D753A22B4855F001A2259 /* XWCameraViewController.m in Sources */,
 				0D1D74BE22B39DA5001A2259 /* _FBTweakColorViewController.m in Sources */,
 				0D1D74AB22B39DA5001A2259 /* FBTweakStore.m in Sources */,
 				0D1D74BC22B39DA5001A2259 /* _FBColorWheelCell.m in Sources */,

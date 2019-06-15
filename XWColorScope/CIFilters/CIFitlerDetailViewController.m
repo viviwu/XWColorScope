@@ -78,7 +78,7 @@
         //NSLog(@"Taller");
         resizedImage = [image resizedImageByHeight: (int)self.view.frame.size.width];
     }
-    NSString *resizeString = [NSString stringWithFormat:@"%ix%i#",(int)self.view.frame.size.width,(int)self.view.frame.size.width];
+    NSString *resizeString = [NSString stringWithFormat:@"%ix%i#", (int)self.view.frame.size.width,(int)self.view.frame.size.width];
     
     UIImage *editResizedImage = [image resizedImageByMagick:resizeString];
     self.editImage = editResizedImage;
