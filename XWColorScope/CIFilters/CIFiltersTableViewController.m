@@ -16,7 +16,7 @@
 
 @property (nonatomic, copy) NSString * selFilterName;
 @property (nonatomic, strong) NSMutableArray * allFilters;
-@property (nonatomic, strong) NSMutableArray * routineGroup;
+@property (nonatomic, strong) NSMutableArray * routineGroup; //Trapcode
 @property (nonatomic, strong) OrderedDictionary * filtersGroups;
 
 @property (nonatomic, strong) NSMutableArray * searchResults;

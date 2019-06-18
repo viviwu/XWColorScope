@@ -19,7 +19,7 @@
 
 
 #ifndef __OPTIMIZE__
-
+    /* 通常release下编译器会做优化*/
   #define NSLog(...) NSLog(__VA_ARGS__)
 
 #else
@@ -27,6 +27,10 @@
   # define NSLog(...) {}
 
 #endif
+
+
+
+
 
 #define kScreenW    UIScreen.mainScreen.bounds.size.width
 #define kScreenH    UIScreen.mainScreen.bounds.size.height

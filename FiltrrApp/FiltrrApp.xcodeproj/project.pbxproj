@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D1D757C22B88C2D001A2259 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D1D757B22B88C2D001A2259 /* LaunchScreen.storyboard */; };
 		2E40719E14E526B800E4982C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40719D14E526B800E4982C /* UIKit.framework */; };
 		2E4071A014E526B800E4982C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E40719F14E526B800E4982C /* Foundation.framework */; };
 		2E4071A214E526B800E4982C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4071A114E526B800E4982C /* CoreGraphics.framework */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0D1D757B22B88C2D001A2259 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2E40719914E526B800E4982C /* FiltrrApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FiltrrApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2E40719D14E526B800E4982C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2E40719F14E526B800E4982C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,6 +120,7 @@
 				2E4071A514E526B800E4982C /* FiltrrApp-Info.plist */,
 				2E4071A614E526B800E4982C /* InfoPlist.strings */,
 				2E4071A914E526B800E4982C /* main.m */,
+				0D1D757B22B88C2D001A2259 /* LaunchScreen.storyboard */,
 				2E4071AB14E526B800E4982C /* FiltrrApp-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -191,6 +194,7 @@
 				2E4071A814E526B800E4982C /* InfoPlist.strings in Resources */,
 				2E4071B414E526B800E4982C /* ViewController.xib in Resources */,
 				2E4071CA14E526F700E4982C /* filtrr_back.jpg in Resources */,
+				0D1D757C22B88C2D001A2259 /* LaunchScreen.storyboard in Resources */,
 				2E4071CC14E526F700E4982C /* ImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

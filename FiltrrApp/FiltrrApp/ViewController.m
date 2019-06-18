@@ -76,7 +76,7 @@
     [self presentModalViewController:imagePicker animated:YES];
 }
 
--(int) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+-(NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return arrEffects.count;
 }
 
@@ -142,7 +142,7 @@
     
     [_tblEffects reloadData];
     
-    [picker dismissModalViewControllerAnimated:YES];
+    [picker dismissModalViewControllerAnimated:YES ];
     
     // Save image
 //    UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);

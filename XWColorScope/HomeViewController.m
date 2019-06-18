@@ -7,12 +7,29 @@
 //
 
 #import "HomeViewController.h"
+#import "XWCameraViewController.h"
 
 @interface HomeViewController ()
 
 @end
 
 @implementation HomeViewController
+
+- (IBAction)cameraShot:(id)sender {
+    [self performSegueWithIdentifier:@"camera" sender:self];
+}
+
+- (IBAction)videoRecord:(id)sender {
+    [self performSegueWithIdentifier:@"camera" sender:self];
+}
+
+- (IBAction)openPhotoEditor:(id)sender {
+    [self performSegueWithIdentifier:@"PhotoOptimize" sender:self];
+}
+
+- (IBAction)openBeautyMode:(id)sender {
+    [self performSegueWithIdentifier:@"PhotoOptimize" sender:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

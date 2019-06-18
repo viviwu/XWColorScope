@@ -85,17 +85,21 @@
 {
     // Takes a [self class] and returns R,G,B,A values in NSNumber form
     CGFloat r=0,g=0,b=0,a=0;
+    CGColorSpaceRef colorSpace = CGColorGetColorSpace(self.CGColor);
+    if (kCGColorSpaceModelRGB == CGColorSpaceGetModel(colorSpace) && 4 == CGColorGetNumberOfComponents(self.CGColor))
+    {
+        if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)])
+        {
+            [self getRed:&r green:&g blue:&b alpha:&a];
+        } else {
+            const CGFloat *components = CGColorGetComponents(self.CGColor);
+            r = components[0];
+            g = components[1];
+            b = components[2];
+            a = components[3];
+        }
+    }
     
-    if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
-        [self getRed:&r green:&g blue:&b alpha:&a];
-    }
-    else {
-        const CGFloat *components = CGColorGetComponents(self.CGColor);
-        r = components[0];
-        g = components[1];
-        b = components[2];
-        a = components[3];
-    }
     return @[@(r),
              @(g),
              @(b), 
@@ -106,17 +110,20 @@
 {
     // Takes [self class] and returns RGBA values in a dictionary as NSNumbers
     CGFloat r=0,g=0,b=0,a=0;
-    if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
-        [self getRed:&r green:&g blue:&b alpha:&a];
+    CGColorSpaceRef colorSpace = CGColorGetColorSpace(self.CGColor);
+    if (kCGColorSpaceModelRGB == CGColorSpaceGetModel(colorSpace) && 4 == CGColorGetNumberOfComponents(self.CGColor))
+    {
+        if ([self respondsToSelector:@selector(getRed:green:blue:alpha:)]) {
+            [self getRed:&r green:&g blue:&b alpha:&a];
+        }
+        else {
+            const CGFloat *components = CGColorGetComponents(self.CGColor);
+            r = components[0];
+            g = components[1];
+            b = components[2];
+            a = components[3];
+        }
     }
-    else {
-        const CGFloat *components = CGColorGetComponents(self.CGColor);
-        r = components[0];
-        g = components[1];
-        b = components[2];
-        a = components[3];
-    }
-    
     return @{@"r":@(r),
              @"g":@(g),
              @"b":@(b),
@@ -130,7 +137,7 @@
     // Takes a [self class] and returns Hue,Saturation,Brightness,Alpha values in NSNumber form
     CGFloat h=0,s=0,b=0,a=0;
     
-    if ([self respondsToSelector:@selector(getHue:saturation:brightness:alpha:)]) {
+    if ([self respondsToSelector: @selector(getHue:saturation:brightness:alpha:)] ) {
         [self getHue:&h saturation:&s brightness:&b alpha:&a];
     }
     

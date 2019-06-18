@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IbI-8w-kGm">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wDM-aG-rYn">
+                                <rect key="frame" x="0.0" y="88" width="414" height="646"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SOl-Kn-LC7">
+                                <rect key="frame" x="0.0" y="734" width="414" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="ayN-ik-Spf"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="SOl-Kn-LC7" firstAttribute="top" secondItem="wDM-aG-rYn" secondAttribute="bottom" id="4jE-w2-J65"/>
+                            <constraint firstItem="wDM-aG-rYn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="D1q-WI-hzb"/>
+                            <constraint firstItem="wDM-aG-rYn" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="EWX-lA-6W6"/>
+                            <constraint firstItem="SOl-Kn-LC7" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="OAZ-GE-Kwd"/>
+                            <constraint firstItem="SOl-Kn-LC7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="WeI-fh-Z93"/>
+                            <constraint firstItem="SOl-Kn-LC7" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dMp-Fv-HeX"/>
+                            <constraint firstItem="wDM-aG-rYn" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="wzA-CE-Fli"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="e1g-6f-l6H">
+                        <barButtonItem key="leftBarButtonItem" systemItem="reply" id="Wpg-7Y-rWQ">
+                            <connections>
+                                <action selector="undoLastAction:" destination="BYZ-38-t0r" id="45f-mo-g45"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Hjx-q3-DGR">
+                            <connections>
+                                <action selector="pickPhoto:" destination="BYZ-38-t0r" id="2fe-7m-Dhe"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="wDM-aG-rYn" id="4kN-ol-LzG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1047.8260869565217" y="137.94642857142856"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Hwz-Cl-uEz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IbI-8w-kGm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="PIK-jo-gqQ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Kxe-pD-eR8"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bxq-FG-TIm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="134.78260869565219" y="782.8125"/>
+        </scene>
+    </scenes>
+</document>
