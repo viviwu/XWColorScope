@@ -243,7 +243,7 @@
     
     [_ciContext drawImage:resultImage inRect:CGRectMake(0.0, 0.0,_glkImgView.drawableWidth,_glkImgView.drawableHeight) fromRect:extentRect];
     [_glkImgView display];
-
+//////
 }
 
 #if 0
