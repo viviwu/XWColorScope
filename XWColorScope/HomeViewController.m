@@ -16,7 +16,7 @@
 @implementation HomeViewController
 
 - (IBAction)cameraShot:(id)sender {
-    [self performSegueWithIdentifier:@"camera" sender:self];
+//    [self performSegueWithIdentifier:@"camera" sender:self];
 }
 
 - (IBAction)videoRecord:(id)sender {
@@ -28,7 +28,7 @@
 }
 
 - (IBAction)openBeautyMode:(id)sender {
-    [self performSegueWithIdentifier:@"PhotoOptimize" sender:self];
+//    [self performSegueWithIdentifier:@"PhotoOptimize" sender:self];
 }
 
 - (void)viewDidLoad {

@@ -1,5 +1,5 @@
 //
-//  JDMCIControllerObject.h
+//  CIFiltersMap.h
 //  CIFilter
 //
 //  Created by Justin Madewell on 11/15/15.
@@ -12,18 +12,18 @@
 
 #import "JDMCIController.h"
 
-@class JDMCIControllerObject;
+@class CIFiltersMap;
 
-@protocol JDMCIControllerObjectDelegate <NSObject>
+@protocol CIFiltersMapDelegate <NSObject>
 
 @optional
 -(void)didUpdateInputParameters:(NSDictionary*)newParameters;
 @end
  
 
-@interface JDMCIControllerObject : NSObject < JDMColorControlObjectDelegate, JDMNumericControlObjectDelegate, JDMCIVectorControlObjectDelegate, JDMBarCodeControlObjectDelegate >
+@interface CIFiltersMap : NSObject < ColorControllerDelegate, NumericControllerDelegate, LayoutManagerDelegate, QRBarCodeControlerDelegate >
 
-@property (nonatomic, assign) id<JDMCIControllerObjectDelegate> delegate;
+@property (nonatomic, assign) id<CIFiltersMapDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *cellData;
 @property (nonatomic, strong) NSArray *cellSections;
@@ -49,7 +49,7 @@
 -(void)reset;
 
 -(void)loadView:(UIView *)view editingView:(GLKView*)editingView withControlsForFilter:(NSString*)filterDisplayName withImage:(UIImage*)image;
--(id)initWithDelegate:(id<JDMCIControllerObjectDelegate>)delegate;
+-(id)initWithDelegate:(id<CIFiltersMapDelegate>)delegate;
 
 -(NSArray*)makeSectionIndexArray;
 

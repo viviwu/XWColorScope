@@ -359,9 +359,9 @@
 	[self addText:string];
 }
 
-- (void)parser:(__unused NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
+- (void)parser:(__unused NSXMLParser *)parser foundCkData:(NSData *)CkDataBlock
 {
-	[self addText:[[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding]];
+	[self addText:[[NSString alloc] initWithData:CkDataBlock encoding:NSUTF8StringEncoding]];
 }
 
 - (void)parser:(__unused NSXMLParser *)parser foundComment:(NSString *)comment

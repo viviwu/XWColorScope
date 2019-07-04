@@ -1,15 +1,15 @@
 //
-//  JDMCIVectorControlObject.m
+//  LayoutManager.m
 //  CIFilter
 //
 //  Created by Justin Madewell on 11/29/15.
 //  Copyright © 2015 Justin Madewell. All rights reserved.
 //
 
-#import "JDMCIVectorControlObject.h"
+#import "LayoutManager.h"
 
 
-@interface JDMCIVectorControlObject ()
+@interface LayoutManager ()
 
 // for refernces
 @property UIView *superView;
@@ -57,9 +57,9 @@
 
 @end
 
-@implementation JDMCIVectorControlObject
+@implementation LayoutManager
 
--(id)initWithDelegate:(id<JDMCIVectorControlObjectDelegate>)delegate inView:(UIView *)view editingView:(GLKView*)editingView ofType:(VectorType)vectorType withTitle:(NSString *)title withDefault:(CIVector *)defaultValue andKeyValue:(NSString *)keyValue
+-(id)initWithDelegate:(id<LayoutManagerDelegate>)delegate inView:(UIView *)view editingView:(GLKView*)editingView ofType:(VectorType)vectorType withTitle:(NSString *)title withDefault:(CIVector *)defaultValue andKeyValue:(NSString *)keyValue
 {
     self = [super init];
     if(self)
@@ -79,7 +79,7 @@
 }
 
 
--(id)initWithDelegateForToneCurve:(id<JDMCIVectorControlObjectDelegate>)delegate inView:(UIView *)view editingView:(GLKView *)editingView withInputParams:(NSDictionary *)inputParams
+-(id)initWithDelegateForToneCurve:(id<LayoutManagerDelegate>)delegate inView:(UIView *)view editingView:(GLKView *)editingView withInputParams:(NSDictionary *)inputParams
 {
     self = [super init];
     if(self)
@@ -187,7 +187,7 @@
 -(void)setup
 {
     // make Button View
-    self.buttonView = [self makeVectorControlButtonwithDisplayName:self.title];
+    self.buttonView = [self makeVectorControlButtonWithDisplayName:self.title];
     [self.superView addSubview:self.buttonView];
     
     //make Control's Auxilary views
@@ -276,8 +276,7 @@
 
 #pragma mark - Setup for Position
 
-
--(UIView*)makeVectorControlButtonwithDisplayName:(NSString*)vectorDisplayName
+-(UIView*)makeVectorControlButtonWithDisplayName:(NSString*)vectorDisplayName
 {
     CGFloat widthValue = (self.superView.bounds.size.width/3)*2;
     
@@ -293,7 +292,7 @@
     vectorControlButtonView.layer.borderColor = color.CGColor;
     vectorControlButtonView.layer.borderWidth = 2.0;
     
-    UILabel *vectorDisplayNameLabel = [[UILabel alloc]initWithFrame:vectorControlbuttonRect];
+    UILabel *vectorDisplayNameLabel = [[UILabel alloc]initWithFrame: vectorControlbuttonRect];
     vectorDisplayNameLabel.textColor = color;
     vectorDisplayNameLabel.textAlignment = NSTextAlignmentCenter;
     vectorDisplayNameLabel.numberOfLines=1;
@@ -376,8 +375,6 @@
         
     }];
 
-    
-    
 }
 
 
@@ -944,7 +941,6 @@
         self.superView.backgroundColor = [UIColor orangeColor];
         self.buttonView.backgroundColor = [UIColor purpleColor];
 
-        
         
     } completion:^(BOOL finished) {
         //

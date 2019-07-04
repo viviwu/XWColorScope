@@ -28,7 +28,7 @@ typedef enum : NSInteger {
 } VectorType;
 
 
-#import "JDMColorControlObject.h"
-#import "JDMNumericControlObject.h"
-#import "JDMCIVectorControlObject.h"
-#import "JDMBarCodeControlObject.h"
+#import "ColorController.h"
+#import "NumericController.h"
+#import "LayoutManager.h"
+#import "QRBarCodeControler.h"

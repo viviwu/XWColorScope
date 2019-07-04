@@ -28,7 +28,7 @@
 extern "C" {
 #endif
 
-#define FBTweakSegmentName "__DATA"
+#define FBTweakSegmentName "__kData"
 #define FBTweakSectionName "FBTweak"
 
 #define FBTweakEncodingAction "__ACTION__"

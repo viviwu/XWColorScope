@@ -1,5 +1,5 @@
 //
-//  JDMColorControlObject.h
+//  ColorController.h
 //  CIFilter
 //
 //  Created by Justin Madewell on 11/22/15.
@@ -11,8 +11,8 @@
 @import UIKit;
 
 
-@class JDMColorControlObject;
-@protocol JDMColorControlObjectDelegate <NSObject>
+@class ColorController;
+@protocol ColorControllerDelegate <NSObject>
 
 @optional
 -(void)didChangeColor:(CIColor*)color forKeyValue:(NSString*)keyValue;
@@ -20,9 +20,9 @@
 
 
 
-@interface JDMColorControlObject : NSObject
+@interface ColorController : NSObject
 
-@property (nonatomic, assign) id<JDMColorControlObjectDelegate> delegate;
+@property (nonatomic, assign) id<ColorControllerDelegate> delegate;
 
 @property (nonatomic, strong) UIColor *color;
 @property (nonatomic, strong) CIColor *ciColor;
@@ -30,7 +30,7 @@
 @property CGFloat positionY;
 
 
--(id)initWithDelegate:(id<JDMColorControlObjectDelegate>)delegate inView:(UIView*)view withDefaultRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue andAlpha:(CGFloat)alpha withTitle:(NSString*)title description:(NSString*)description andKeyValue:(NSString*)keyValue;
+-(id)initWithDelegate:(id<ColorControllerDelegate>)delegate inView:(UIView*)view withDefaultRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue andAlpha:(CGFloat)alpha withTitle:(NSString*)title description:(NSString*)description andKeyValue:(NSString*)keyValue;
 
 -(void)updateButtonPosition:(CGFloat)buttonY;
 

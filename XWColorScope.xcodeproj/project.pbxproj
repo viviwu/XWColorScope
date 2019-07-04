@@ -69,6 +69,16 @@
 		0D94674022B0A09E00F8F396 /* UIImage+FiltrrCompositions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94673A22B0A09E00F8F396 /* UIImage+FiltrrCompositions.m */; };
 		0D94674222B0A09E00F8F396 /* UIImage+Filtrr.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94673F22B0A09E00F8F396 /* UIImage+Filtrr.m */; };
 		0D94674622B0B1B800F8F396 /* CIFitlerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D94674522B0B1B800F8F396 /* CIFitlerDetailViewController.m */; };
+		0DDD39DB22CDDC790033558F /* XImageMattingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DDD39DA22CDDC790033558F /* XImageMattingViewController.mm */; };
+		0DDD39E122CDDF100033558F /* testPic1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DDD39DD22CDDF0F0033558F /* testPic1.png */; };
+		0DDD39E222CDDF100033558F /* testPic.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DDD39DE22CDDF0F0033558F /* testPic.png */; };
+		0DDD39E322CDDF100033558F /* background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DDD39DF22CDDF0F0033558F /* background1.png */; };
+		0DDD39E422CDDF100033558F /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DDD39E022CDDF0F0033558F /* background.png */; };
+		0DDD39EA22CDE15B0033558F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDD39E922CDE15B0033558F /* Foundation.framework */; };
+		0DDD39EC22CDE1600033558F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDD39EB22CDE1600033558F /* UIKit.framework */; };
+		0DDD39EE22CDE1680033558F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDD39ED22CDE1680033558F /* CoreGraphics.framework */; };
+		0DDD39F022CDE1770033558F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DDD39EF22CDE1770033558F /* CoreImage.framework */; };
+		0DDD39F122CDE2910033558F /* cubeMap.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DDD39E622CDDF360033558F /* cubeMap.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +221,17 @@
 		0D94674322B0A5EB00F8F396 /* PrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		0D94674422B0B1B800F8F396 /* CIFitlerDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CIFitlerDetailViewController.h; sourceTree = "<group>"; };
 		0D94674522B0B1B800F8F396 /* CIFitlerDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIFitlerDetailViewController.m; sourceTree = "<group>"; };
+		0DDD39D922CDDC790033558F /* XImageMattingViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XImageMattingViewController.h; sourceTree = "<group>"; };
+		0DDD39DA22CDDC790033558F /* XImageMattingViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = XImageMattingViewController.mm; sourceTree = "<group>"; };
+		0DDD39DD22CDDF0F0033558F /* testPic1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPic1.png; sourceTree = "<group>"; };
+		0DDD39DE22CDDF0F0033558F /* testPic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = testPic.png; sourceTree = "<group>"; };
+		0DDD39DF22CDDF0F0033558F /* background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background1.png; sourceTree = "<group>"; };
+		0DDD39E022CDDF0F0033558F /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		0DDD39E622CDDF360033558F /* cubeMap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cubeMap.c; sourceTree = "<group>"; };
+		0DDD39E922CDE15B0033558F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0DDD39EB22CDE1600033558F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0DDD39ED22CDE1680033558F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0DDD39EF22CDE1770033558F /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +239,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DDD39F022CDE1770033558F /* CoreImage.framework in Frameworks */,
+				0DDD39EE22CDE1680033558F /* CoreGraphics.framework in Frameworks */,
+				0DDD39EC22CDE1600033558F /* UIKit.framework in Frameworks */,
+				0DDD39EA22CDE15B0033558F /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +394,7 @@
 				0D94671422B09F2500F8F396 /* XWColorScopeTests */,
 				0D94671F22B09F2500F8F396 /* XWColorScopeUITests */,
 				0D9466F722B09F2500F8F396 /* Products */,
+				0DDD39E822CDE15B0033558F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -389,12 +415,9 @@
 				0D9466FA22B09F2500F8F396 /* AppDelegate.m */,
 				0D94673222B09F6F00F8F396 /* HomeViewController.h */,
 				0D94673322B09F6F00F8F396 /* HomeViewController.m */,
-				0D1D757022B775DA001A2259 /* XWUtilsTableViewController.h */,
-				0D1D757122B775DA001A2259 /* XWUtilsTableViewController.m */,
 				0D1D753822B4855F001A2259 /* XWCameraViewController.h */,
 				0D1D753922B4855F001A2259 /* XWCameraViewController.m */,
-				0D1D755D22B71B05001A2259 /* XWColorMapperViewController.h */,
-				0D1D755E22B71B05001A2259 /* XWColorMapperViewController.m */,
+				0DDD39DC22CDDEA90033558F /* Utils */,
 				0D94673122B09F4600F8F396 /* CIFilters */,
 				0D94673922B0A09E00F8F396 /* Filtrr */,
 				0D9466FF22B09F2500F8F396 /* Main.storyboard */,
@@ -461,6 +484,43 @@
 				0D94673A22B0A09E00F8F396 /* UIImage+FiltrrCompositions.m */,
 			);
 			path = Filtrr;
+			sourceTree = "<group>";
+		};
+		0DDD39DC22CDDEA90033558F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				0D1D757022B775DA001A2259 /* XWUtilsTableViewController.h */,
+				0D1D757122B775DA001A2259 /* XWUtilsTableViewController.m */,
+				0D1D755D22B71B05001A2259 /* XWColorMapperViewController.h */,
+				0D1D755E22B71B05001A2259 /* XWColorMapperViewController.m */,
+				0DDD39D922CDDC790033558F /* XImageMattingViewController.h */,
+				0DDD39DA22CDDC790033558F /* XImageMattingViewController.mm */,
+				0DDD39E622CDDF360033558F /* cubeMap.c */,
+				0DDD39E522CDDF160033558F /* pic */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0DDD39E522CDDF160033558F /* pic */ = {
+			isa = PBXGroup;
+			children = (
+				0DDD39E022CDDF0F0033558F /* background.png */,
+				0DDD39DF22CDDF0F0033558F /* background1.png */,
+				0DDD39DE22CDDF0F0033558F /* testPic.png */,
+				0DDD39DD22CDDF0F0033558F /* testPic1.png */,
+			);
+			path = pic;
+			sourceTree = "<group>";
+		};
+		0DDD39E822CDE15B0033558F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0DDD39EF22CDE1770033558F /* CoreImage.framework */,
+				0DDD39ED22CDE1680033558F /* CoreGraphics.framework */,
+				0DDD39EB22CDE1600033558F /* UIKit.framework */,
+				0DDD39E922CDE15B0033558F /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -572,10 +632,14 @@
 				0D1D745922B353F1001A2259 /* CIFilters.json in Resources */,
 				0D1D757A22B78AB6001A2259 /* camera@2x.png in Resources */,
 				0D94670922B09F2500F8F396 /* LaunchScreen.storyboard in Resources */,
+				0DDD39E222CDDF100033558F /* testPic.png in Resources */,
 				0D94670622B09F2500F8F396 /* Assets.xcassets in Resources */,
 				0D94670122B09F2500F8F396 /* Main.storyboard in Resources */,
+				0DDD39E422CDDF100033558F /* background.png in Resources */,
 				0D1D758722B8B127001A2259 /* photos@2x.png in Resources */,
 				0D260CD422B108C500C7A70A /* File.strings in Resources */,
+				0DDD39E322CDDF100033558F /* background1.png in Resources */,
+				0DDD39E122CDDF100033558F /* testPic1.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +664,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DDD39DB22CDDC790033558F /* XImageMattingViewController.mm in Sources */,
 				0D1D756522B739EC001A2259 /* AudioHelper.m in Sources */,
 				0D1D74AF22B39DA5001A2259 /* FBTweakViewController.m in Sources */,
 				0D1D74AA22B39DA5001A2259 /* _FBTweakCategoryViewController.m in Sources */,
@@ -614,6 +679,7 @@
 				0D1D74B422B39DA5001A2259 /* _FBTweakBindObserver.m in Sources */,
 				0D1D74A522B39DA5001A2259 /* UIImage+Scale.m in Sources */,
 				0D94670422B09F2500F8F396 /* XWColorScope.xcdatamodeld in Sources */,
+				0DDD39F122CDE2910033558F /* cubeMap.c in Sources */,
 				0D1D758C22B8B3EF001A2259 /* XWPhotoOptimizeViewController.m in Sources */,
 				0D1D74B222B39DA5001A2259 /* FBTweakShakeWindow.m in Sources */,
 				0D94673022B09F3D00F8F396 /* CIFiltersTableViewController.m in Sources */,

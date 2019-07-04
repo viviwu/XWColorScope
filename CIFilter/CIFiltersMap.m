@@ -1,23 +1,23 @@
 //
-//  JDMCIControllerObject.m
+//  CIFiltersMap.m
 //  CIFilter
 //
 //  Created by Justin Madewell on 11/15/15.
 //  Copyright © 2015 Justin Madewell. All rights reserved.
 //
 
-#import "JDMCIControllerObject.h"
+#import "CIFiltersMap.h"
 #import "JDMUtility.h"
 
 
 
-static NSString *ATTRS = @"attrs";
-static NSString *DATA = @"data";
-static NSString *DISPLAY_NAME = @"displayName";
+static NSString *kAttriS = @"attributes";
+static NSString *kData = @"dataDictionary";
+static NSString *kDisName = @"displayNameDictionary";
 static NSString *CI_NAME = @"ciName";
 
 
-@interface JDMCIControllerObject ()
+@interface CIFiltersMap ()
 @property NSDictionary *data;
 @property NSMutableArray *controls;
 
@@ -33,7 +33,7 @@ static NSString *CI_NAME = @"ciName";
 
 @property int scooter;
 
-@property JDMNumericControlObject *numericControlObject;
+@property NumericController *numericControlObject;
 
 
 
@@ -43,9 +43,9 @@ static NSString *CI_NAME = @"ciName";
 
 @end
 
-@implementation JDMCIControllerObject
+@implementation CIFiltersMap
 
--(id)initWithDelegate:(id<JDMCIControllerObjectDelegate>)delegate
+-(id)initWithDelegate:(id<CIFiltersMapDelegate>)delegate
 {
     self = [super init];
     if (self) {
@@ -82,14 +82,14 @@ static NSString *CI_NAME = @"ciName";
     
     for (NSObject *controlObject in self.controls) {
         
-        if ([controlObject isKindOfClass:[JDMCIVectorControlObject class]]) {
+        if ([controlObject isKindOfClass:[LayoutManager class]]) {
             NSLog(@"Cleaning Vector Control");
-            [(JDMCIVectorControlObject*)controlObject cleanUpAndRemove];
+            [(LayoutManager*)controlObject cleanUpAndRemove];
         }
         
-        if ([controlObject isKindOfClass:[JDMNumericControlObject class]]) {
+        if ([controlObject isKindOfClass:[NumericController class]]) {
             NSLog(@"Cleaning Numeric Control");
-            [(JDMNumericControlObject*)controlObject cleanUpAndRemove];
+            [(NumericController*)controlObject cleanUpAndRemove];
         }
         
         
@@ -123,7 +123,7 @@ static NSString *CI_NAME = @"ciName";
     }
     
     
-    [self.data setValue:[NSDictionary dictionaryWithDictionary:allAttrs] forKey:ATTRS];
+    [self.data setValue:[NSDictionary dictionaryWithDictionary:allAttrs] forKey:kAttriS];
     [self makeNameExchangeFunction];
     [self makeCatagories];
     [self fillCellData];
@@ -137,8 +137,8 @@ static NSString *CI_NAME = @"ciName";
     NSMutableDictionary *displayNameDictionary = [[NSMutableDictionary alloc]init];
     NSMutableDictionary *ciNameDictionary = [[NSMutableDictionary alloc]init];
     
-    for (NSString *key in [[self.data valueForKey:ATTRS] allKeys]) {
-        NSDictionary  *attrs = [[self.data valueForKey:ATTRS] valueForKey:key];
+    for (NSString *key in [[self.data valueForKey:kAttriS] allKeys]) {
+        NSDictionary  *attrs = [[self.data valueForKey:kAttriS] valueForKey:key];
         NSString *filterDisplayName = [attrs valueForKey:@"CIAttributeFilterDisplayName"];
         
         [displayNameDictionary setValue:key forKey:filterDisplayName];
@@ -147,10 +147,10 @@ static NSString *CI_NAME = @"ciName";
     }
     
     NSMutableDictionary *dataDictionary = [[NSMutableDictionary alloc]init];
-    [dataDictionary setValue:displayNameDictionary forKey:DISPLAY_NAME];
+    [dataDictionary setValue:displayNameDictionary forKey:kDisName];
     [dataDictionary setValue:ciNameDictionary forKey:CI_NAME];
     
-    [self.data setValue:dataDictionary forKey:DATA];
+    [self.data setValue:dataDictionary forKey:kData];
 }
 
 #pragma mark - Cell Data
@@ -158,12 +158,12 @@ static NSString *CI_NAME = @"ciName";
 -(void)fillCellData
 {
     
-    NSArray* allfilters = [[[self.data valueForKey:DATA] valueForKey:DISPLAY_NAME] allKeys];
+    NSArray* allfilters = [[[self.data valueForKey:kData] valueForKey:kDisName] allKeys];
     
     NSMutableArray *sections = [[NSMutableArray alloc]init];
     NSMutableArray *sectionTitles = [[NSMutableArray alloc]init];
     
-    NSArray *sortedKeys =[[self.tableViewData allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    NSArray *sortedKeys =[[self.tableViewData allKeys] sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
     
     for (NSString *catagoryKey in sortedKeys) {
         NSArray *filtersInCatagory = [self.tableViewData valueForKey:catagoryKey];
@@ -173,11 +173,11 @@ static NSString *CI_NAME = @"ciName";
         
         NSString *titleCatagory = [self titleFromCamelCaseString:cleanedCatagory];
         
-        [sectionTitles addObject:titleCatagory];
-        [sections addObject:[self cleanCellTitles:filtersInCatagory]];
+        [sectionTitles addObject: titleCatagory];
+        [sections addObject: [self cleanCellTitles:filtersInCatagory]];
     }
     
-    self.cellData = [allfilters sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.cellData = [allfilters sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
     
     self.cellSections = [NSArray arrayWithArray:sections];
     self.cellSectionTitles = [NSArray arrayWithArray:sectionTitles];
@@ -194,7 +194,7 @@ static NSString *CI_NAME = @"ciName";
         [convertedNames addObject:displayNameOfTitle];
     }
     
-    return [convertedNames sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    return [convertedNames sortedArrayUsingSelector: @selector(localizedCaseInsensitiveCompare:)];
 }
 
 - (NSString *)titleFromCamelCaseString:(NSString *)input
@@ -289,7 +289,10 @@ static NSString *CI_NAME = @"ciName";
 
 #pragma mark - Load controls
 
--(void)loadView:(UIView *)view editingView:(GLKView*)editingView withControlsForFilter:(NSString*)filterDisplayName withImage:(UIImage *)image
+- (void)     loadView:(UIView *)view
+          editingView:(GLKView*)editingView
+withControlsForFilter:(NSString*)filterDisplayName
+            withImage:(UIImage *)image
 {
     self.filterDisplayName = filterDisplayName;
     self.filterName = [self getCINameFromDisplayName:self.filterDisplayName];
@@ -314,7 +317,8 @@ static NSString *CI_NAME = @"ciName";
     
     // lookup and get Control information for Filter
     NSDictionary *controlsDictionary = [self getConfigurationInformationForFilterName:filterDisplayName];
-
+    NSLog(@"self.filterDisplayName = %@ | self.filterName=%@", self.filterDisplayName, self.filterName);
+//    NSLog(@"controlsDictionary: %@", controlsDictionary);
     //make and add Keep Button
     [self makeKeepButtonOn:view];
     
@@ -383,17 +387,9 @@ static NSString *CI_NAME = @"ciName";
         }
 
     }
-        
-
     [self.delegate didUpdateInputParameters:self.inputParamaters];
-    NSLog(@"self.inputParamaters:%@",self.inputParamaters);
-    
-   
-    
+//    NSLog(@"self.inputParamaters:%@",self.inputParamaters);
 }
-
-
-
 
 -(void)makeKeepButtonOn:(UIView*)controlsView
 {
@@ -429,7 +425,6 @@ static NSString *CI_NAME = @"ciName";
 {
     static int decider;
     
-    
     CAShapeLayer *starShape = (CAShapeLayer*)[[tap view].layer.sublayers firstObject];
     
     if (decider == 0) {
@@ -452,7 +447,6 @@ static NSString *CI_NAME = @"ciName";
         return;
     }
 
-    
    
 }
 
@@ -540,7 +534,7 @@ static NSString *CI_NAME = @"ciName";
     CIColor *defaultColor = [controlData valueForKey:@"CIAttributeDefault"];
     NSString *colorControlDescription = [controlData valueForKey:@"CIAttributeDescription"];
     
-    JDMColorControlObject *colorControlObject = [[JDMColorControlObject alloc]initWithDelegate:self inView:self.superView withDefaultRed:defaultColor.red green:defaultColor.green blue:defaultColor.blue andAlpha:defaultColor.alpha withTitle:displayName description:colorControlDescription andKeyValue:keyValue];
+    ColorController *colorControlObject = [[ColorController alloc]initWithDelegate:self inView:self.superView withDefaultRed:defaultColor.red green:defaultColor.green blue:defaultColor.blue andAlpha:defaultColor.alpha withTitle:displayName description:colorControlDescription andKeyValue:keyValue];
     [colorControlObject updateButtonPosition:yPoint+10];
     [self.controls addObject:colorControlObject];
 }
@@ -553,7 +547,7 @@ static NSString *CI_NAME = @"ciName";
     CGFloat def = [[controlData valueForKey:@"CIAttributeDefault"] floatValue];
     NSString *title = [controlData valueForKey:@"CIAttributeDisplayName"];
     
-    JDMNumericControlObject *numericControlObject = [[JDMNumericControlObject alloc]initWithDelegate:self inView:self.superView withTitle:title withMin:min andMax:max withDefault:def andKeyValue:keyValue];
+    NumericController *numericControlObject = [[NumericController alloc]initWithDelegate:self inView:self.superView withTitle:title withMin:min andMax:max withDefault:def andKeyValue:keyValue];
     [numericControlObject updateYPosition:yPoint];
     [self.controls addObject:numericControlObject];
 }
@@ -565,7 +559,7 @@ static NSString *CI_NAME = @"ciName";
     
     NSString *title = [controlData valueForKey:@"CIAttributeDisplayName"];
     
-    JDMCIVectorControlObject *vectorControlObject = [[JDMCIVectorControlObject alloc]initWithDelegate:self inView:self.superView editingView:self.editingView ofType:vectorType withTitle:title withDefault:defaultVector andKeyValue:keyValue];
+    LayoutManager *vectorControlObject = [[LayoutManager alloc]initWithDelegate:self inView:self.superView editingView:self.editingView ofType:vectorType withTitle:title withDefault:defaultVector andKeyValue:keyValue];
     [vectorControlObject updateYPosition:yPoint];
     [self.controls addObject:vectorControlObject];
     
@@ -575,14 +569,14 @@ static NSString *CI_NAME = @"ciName";
 #pragma mark - Make Tone Curve Control
 -(void)makeToneCurveControlWithControlData:(NSDictionary *)controlData
 {
-    JDMCIVectorControlObject *vectorControlObject = [[JDMCIVectorControlObject alloc]initWithDelegateForToneCurve:self inView:self.superView editingView:self.editingView withInputParams:controlData];
+    LayoutManager *vectorControlObject = [[LayoutManager alloc]initWithDelegateForToneCurve:self inView:self.superView editingView:self.editingView withInputParams:controlData];
     [self.controls addObject:vectorControlObject];
 }
 
 #pragma mark - Make QR Code Control
 -(void)makeBarCodeControllerWithControlData:(NSDictionary *)controlData
 {
-    JDMBarCodeControlObject *barCodeControlObject = [[JDMBarCodeControlObject alloc]initWithDelegate:self inView:self.superView withInputParams:controlData withFilterName:self.filterName];
+    QRBarCodeControler *barCodeControlObject = [[QRBarCodeControler alloc]initWithDelegate:self inView:self.superView withInputParams:controlData withFilterName:self.filterName];
     [self.controls addObject:barCodeControlObject];
     
 }
@@ -773,8 +767,6 @@ static NSString *CI_NAME = @"ciName";
     CIContext *context = [CIContext contextWithOptions:nil];
     
     
-    
-    
     UIImage * img = [UIImage imageWithCGImage:[context createCGImage:outputImage fromRect:outRect]];
     
     return img;
@@ -877,18 +869,18 @@ static NSString *CI_NAME = @"ciName";
 
 -(NSString*)getDisplayNameFromCIName:(NSString*)ciName
 {
-    return [[[self.data valueForKey:DATA] valueForKey:CI_NAME] valueForKey:ciName];
+    return [[[self.data valueForKey:kData] valueForKey:CI_NAME] valueForKey:ciName];
 }
 
 -(NSString*)getCINameFromDisplayName:(NSString*)displayName
 {
-    return [[[self.data valueForKey:DATA] valueForKey:DISPLAY_NAME] valueForKey:displayName];
+    return [[[self.data valueForKey:kData] valueForKey:kDisName] valueForKey:displayName];
 }
 
 -(NSDictionary*)getFilterDataFromFilterDisplayName:(NSString*)filterDisplayName
 {
     NSString *key = [self getCINameFromDisplayName:filterDisplayName];
-    NSDictionary *filterInfo = [[self.data valueForKey:ATTRS] valueForKey:key];
+    NSDictionary *filterInfo = [[self.data valueForKey:kAttriS] valueForKey:key];
     return filterInfo;
 }
     

@@ -1,14 +1,14 @@
 //
-//  JDMBarCodeControlObject.m
+//  QRBarCodeControler.m
 //  CIFilter
 //
 //  Created by Justin Madewell on 12/7/15.
 //  Copyright © 2015 Justin Madewell. All rights reserved.
 //
 
-#import "JDMBarCodeControlObject.h"
+#import "QRBarCodeControler.h"
 
-@interface JDMBarCodeControlObject ()
+@interface QRBarCodeControler ()
 
 @property UIView *superView;
 @property NSString *filterName;
@@ -20,9 +20,12 @@
 
 @end
 
-@implementation JDMBarCodeControlObject
+@implementation QRBarCodeControler
 
--(id)initWithDelegate:(id<JDMBarCodeControlObjectDelegate>)delegate inView:(UIView *)view withInputParams:(NSDictionary *)inputParams withFilterName:(NSString *)filterName
+-(id)initWithDelegate:(id<QRBarCodeControlerDelegate>)delegate
+               inView:(UIView *)view
+      withInputParams:(NSDictionary *)inputParams
+       withFilterName:(NSString *)filterName
 {
     self = [super init];
     if(self)

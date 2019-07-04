@@ -9,8 +9,10 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#ifdef __OBJC__
+
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
@@ -18,15 +20,20 @@
 #define XWLog(FORMAT, ...) printf("%s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
 
 
-#ifndef __OPTIMIZE__
+    #ifndef __OPTIMIZE__
     /* 通常release下编译器会做优化*/
-  #define NSLog(...) NSLog(__VA_ARGS__)
+        #define NSLog(...) NSLog(__VA_ARGS__)
 
-#else
+    #else
 
-  # define NSLog(...) {}
+        # define NSLog(...) {}
+
+    #endif
+
 
 #endif
+
+
 
 
 

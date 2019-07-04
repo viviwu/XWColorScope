@@ -8,47 +8,44 @@
 
 #import "ViewController.h"
 #import "JDMUtility.h"
-#import "JDMCIControllerObject.h"
+#import "CIFiltersMap.h"
 
 @import GLKit;
 @import OpenGLES;
 
 
-@interface ViewController ()< UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UISearchBarDelegate ,JDMCIControllerObjectDelegate , UINavigationControllerDelegate>
+@interface ViewController ()< UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UISearchBarDelegate, CIFiltersMapDelegate,  UINavigationControllerDelegate>
+
 @property CALayer *filterLayer;
 
-
-
-@property JDMCIControllerObject *controller;
+@property CIFiltersMap *filtersMap;
 @property UITableView *tableView;
-@property UISearchBar *mySearchBar;
+@property UISearchBar *searchBar;
+
 @property UIImageView *imageView;
-@property UIImageView *backingBlurView;
-@property UIView *controllerView;
+@property UIImageView *bgBlurImgaeView;
+
+@property UIView * filtersMapView;
 
 @property UIImage *image;
 @property UIImage *editImage;
 @property UIImage *fullsizeImage;
 
-
-@property EAGLContext *_eaglContext;
-@property CIContext *_cictx;
-@property GLKView *_viewForImage;
+@property EAGLContext *eaglContext;
+@property CIContext *ciContext;
+@property GLKView *glkImgView;
 
 @property CGRect scrollingRectForTableView;
 @property CGRect scrollingRectForImageView;
 @property CGRect glkViewRect;
-@property CGRect controllerViewRect;
+@property CGRect filtersMapViewRect;
 @property CGRect searchBarRect;
-
 
 
 @property BOOL isEditing;
 @property BOOL isSearching;
 
 @property NSMutableArray *searchedResults;
-
-
 @property NSMutableDictionary *allClassTypes;
 
 @end
@@ -60,6 +57,9 @@
     [self calculateRects];
     [self buildViews];
  }
+
+#define kScreenW    UIScreen.mainScreen.bounds.size.width
+#define kScreenH    UIScreen.mainScreen.bounds.size.height
 
 -(void)calculateRects
 {
@@ -74,16 +74,17 @@
     
     CGFloat padding = 8;
     
-    CGFloat offsetY = (self.view.frame.size.height/3)-statusBarOffset;
-    _scrollingRectForTableView = CGRectMake(0, offsetY, self.view.frame.size.width, self.view.frame.size.height-offsetY);
+    CGFloat offsetY = (kScreenH/3)-statusBarOffset;
+    _scrollingRectForTableView = CGRectMake(0, offsetY, kScreenW, kScreenH-offsetY);
     
-    _scrollingRectForImageView = CGRectMake(0, (statusBarOffset+searchBarHeight), self.view.frame.size.width,  _scrollingRectForTableView.origin.y-(statusBarOffset+searchBarHeight+padding));
+    _scrollingRectForImageView = CGRectMake(0, (statusBarOffset+searchBarHeight), kScreenW,  _scrollingRectForTableView.origin.y-(statusBarOffset+searchBarHeight+padding));
     
     // editing -- tableview is hidden and the controls view is posisitoned on top of it
-    _glkViewRect = CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.width);
-    _controllerViewRect = CGRectMake(0, self.view.frame.size.width,self.view.frame.size.width , self.view.frame.size.height-self.view.frame.size.width);
+    _glkViewRect = CGRectMake(0, 0, kScreenW,kScreenW);
+    
+    _filtersMapViewRect = CGRectMake(0, kScreenW, kScreenW , kScreenH-kScreenW);
 
-    _searchBarRect = CGRectMake(0, statusBarOffset, self.view.frame.size.width, searchBarHeight);
+    _searchBarRect = CGRectMake(0, statusBarOffset, kScreenW, searchBarHeight);
     
 }
 
@@ -97,14 +98,14 @@
 {
     self.isEditing = NO;
     // Init the controller object
-    self.controller = [[JDMCIControllerObject alloc]initWithDelegate:self];
+    self.filtersMap = [[CIFiltersMap alloc]initWithDelegate:self];
    
     [self setupBackingBlur];
     [self setupImageView];
     [self setupTableView];
      [self setupSearchBar];
     
-    [self setupControllerView];
+    [self setupfiltersMapView];
     [self setupGLContext];
 }
 
@@ -130,7 +131,7 @@
     searchBar.scopeBarBackgroundImage = ImageGetTransparentImage();
 
     [self.view addSubview:searchBar];
-    self.mySearchBar = searchBar;
+    self.searchBar = searchBar;
 }
 
 
@@ -153,60 +154,62 @@
     self.imageView = imgView;
 }
 
--(void)setupControllerView
+-(void)setupfiltersMapView
 {
-    UIView *view = [[UIView alloc]initWithFrame:_controllerViewRect];
+    UIView *view = [[UIView alloc]initWithFrame:_filtersMapViewRect];
     view.backgroundColor = [UIColor orangeColor];
     view.alpha = 0;
     [self.view addSubview:view];
     [view setHidden:YES];
     
-    self.controllerView = view;
+    self.filtersMapView = view;
 }
 
 
 -(void)setupGLContext
 {
-    __eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
-    __viewForImage = [[GLKView alloc] initWithFrame:_glkViewRect context:__eaglContext];
-    __cictx = [CIContext contextWithEAGLContext:__eaglContext options:@{kCIContextWorkingColorSpace: [NSNull null]}];
+    _eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    _glkImgView = [[GLKView alloc] initWithFrame:_glkViewRect context:_eaglContext];
+    _ciContext = [CIContext contextWithEAGLContext:_eaglContext options:@{kCIContextWorkingColorSpace: [NSNull null]}];
     
-    [__viewForImage setEnableSetNeedsDisplay:NO];
+    [_glkImgView setEnableSetNeedsDisplay:NO];
     
-    [self.view addSubview:__viewForImage];
+    [self.view addSubview:_glkImgView];
     
     [self loadImageIntoEAGLContext];
     
-    __viewForImage.alpha = 0;
-    [__viewForImage setHidden:YES];
+    _glkImgView.alpha = 0;
+    [_glkImgView setHidden:YES];
 }
 
 -(void)setupBackingBlur
 {
-    UIImageView *backingBlurView = [[UIImageView alloc]initWithFrame:self.view.frame];
+    UIImageView *bgBlurImgaeView = [[UIImageView alloc]initWithFrame:self.view.frame];
     UIImage *image = self.image;
     UIImage *blurredImage = [image applyLightEffect];
-    backingBlurView.image = blurredImage;
-    [self.view addSubview:backingBlurView];
+    bgBlurImgaeView.image = blurredImage;
+    [self.view addSubview:bgBlurImgaeView];
     
-    self.backingBlurView = backingBlurView;
+    self.bgBlurImgaeView = bgBlurImgaeView;
 }
 
 #pragma mark - Controller Object Delegate
 
 -(void)didUpdateInputParameters:(NSDictionary *)newParameters
 {
+    NSLog(@"filterName:\n%@ ->Parameters:\n%@", self.filtersMap.filterName, newParameters);
     // Make the Filter
-    CIFilter *filter = [CIFilter filterWithName:self.controller.filterName withInputParameters:newParameters];// A filter that is available in iOS or a custom one :)
+    CIFilter *filter = [CIFilter filterWithName:self.filtersMap.filterName withInputParameters:newParameters];
+    // A filter that is available in iOS or a custom one :)
     
     CIImage *image = [CIImage imageWithCGImage:[self.editImage CGImage]];
     
     CIImage *resultImage = [filter valueForKey:kCIOutputImageKey];
     
-    [__viewForImage bindDrawable];
+    [_glkImgView bindDrawable];
     
-    if (__eaglContext != [EAGLContext currentContext]) {
-        [EAGLContext setCurrentContext:__eaglContext];
+    if (_eaglContext != [EAGLContext currentContext]) {
+        [EAGLContext setCurrentContext:_eaglContext];
     }
     
     //glClearColor(0.5, 0.5, 0.5, 1.0);
@@ -220,30 +223,26 @@
     CGRect extentRect = [image extent];
     
     if (CGRectIsInfinite(extentRect) || CGRectIsEmpty(extentRect)) {
-        extentRect = __viewForImage.bounds;
+        extentRect = _glkImgView.bounds;
 
     }
     
-    if ([self.controller.filterName isEqualToString:@"CIQRCodeGenerator"] || [self.controller.filterName isEqualToString:@"CIAztecCodeGenerator"]) {
+    if ([self.filtersMap.filterName isEqualToString:@"CIQRCodeGenerator"] || [self.filtersMap.filterName isEqualToString:@"CIAztecCodeGenerator"]) {
         CGAffineTransform scaleTransform = CGAffineTransformMakeScale(54, 54); // Scale by 5 times along both dimensions
-        
         
         resultImage = [resultImage imageByApplyingTransform: scaleTransform];
     }
 
     //条形码
-    if ([self.controller.filterName isEqualToString:@"CIPDF417BarcodeGenerator"] || [self.controller.filterName isEqualToString:@"CICode128BarcodeGenerator"] )
+    if ([self.filtersMap.filterName isEqualToString:@"CIPDF417BarcodeGenerator"] || [self.filtersMap.filterName isEqualToString:@"CICode128BarcodeGenerator"] )
     {
         CGAffineTransform scaleTransform = CGAffineTransformMakeScale(5, 5); // Scale by 5 times
         resultImage = [resultImage imageByApplyingTransform: scaleTransform];
 
     }
     
-
-    
-    
-    [__cictx drawImage:resultImage inRect:CGRectMake(0.0, 0.0,__viewForImage.drawableWidth,__viewForImage.drawableHeight) fromRect:extentRect];
-    [__viewForImage display];
+    [_ciContext drawImage:resultImage inRect:CGRectMake(0.0, 0.0,_glkImgView.drawableWidth,_glkImgView.drawableHeight) fromRect:extentRect];
+    [_glkImgView display];
 
 }
 
@@ -305,14 +304,14 @@
     
     // Make the Filter
     
-    CIFilter *filter = [CIFilter filterWithName:self.controller.filterName withInputParameters:mutableCopyOfInputParameters];// A filter that is available in iOS or a custom one :)
+    CIFilter *filter = [CIFilter filterWithName:self.filtersMap.filterName withInputParameters:mutableCopyOfInputParameters];// A filter that is available in iOS or a custom one :)
     outputImage = [filter outputImage];
     
     CIContext *context = [CIContext contextWithOptions:nil];
     
     CGRect extent = inputImage.extent;
     
-    if ([self.controller.filterName isEqualToString:@"CIQRCodeGenerator"]) {
+    if ([self.filtersMap.filterName isEqualToString:@"CIQRCodeGenerator"]) {
         outputImage = [outputImage imageByApplyingTransform:CGAffineTransformMakeScale(54, 54)];
         extent = CGRectMake(0, 0, 1242, 1242);
         
@@ -332,11 +331,11 @@
 {
     CIImage *image = [CIImage imageWithCGImage:[self.editImage CGImage]];
     
-    [__viewForImage bindDrawable];
+    [_glkImgView bindDrawable];
     
-    [__cictx drawImage:image inRect:CGRectMake(0.0, 0.0,__viewForImage.drawableWidth,__viewForImage.drawableHeight) fromRect:[image extent]];
+    [_ciContext drawImage:image inRect:CGRectMake(0.0, 0.0,_glkImgView.drawableWidth,_glkImgView.drawableHeight) fromRect:[image extent]];
     
-    [__viewForImage display];
+    [_glkImgView display];
     
 }
 
@@ -345,13 +344,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   NSString *cellStringHit = [[self.controller.cellSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+   NSString *cellStringHit = [[self.filtersMap.cellSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     
     [self performAnimation];
     
-    [self.controller loadView:self.controllerView editingView:__viewForImage withControlsForFilter:cellStringHit withImage:self.editImage];
+    [self.filtersMap loadView: self.filtersMapView
+                  editingView: _glkImgView
+        withControlsForFilter: cellStringHit
+                    withImage: self.editImage ];
     
-   [self.mySearchBar resignFirstResponder];
+   [self.searchBar resignFirstResponder];
 }
 
 
@@ -359,7 +361,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return self.controller.cellSectionTitles.count;
+    return self.filtersMap.cellSectionTitles.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -367,13 +369,13 @@
     if (self.isSearching == YES) {
         return self.searchedResults.count;
     } else {
-        return [[self.controller.cellSections objectAtIndex:section] count];
+        return [[self.filtersMap.cellSections objectAtIndex:section] count];
     }
 }
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-   return [self.controller.cellSectionTitles objectAtIndex:section];
+   return [self.filtersMap.cellSectionTitles objectAtIndex:section];
 }
 
 
@@ -396,14 +398,14 @@
     if (self.isSearching == YES) {
         cell.textLabel.text = [self.searchedResults objectAtIndex:indexPath.row];
     } else {
-        cell.textLabel.text = [[self.controller.cellSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+        cell.textLabel.text = [[self.filtersMap.cellSections objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     }
 }
 
 
 #pragma mark - Section Index
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return [self.controller makeSectionIndexArray];
+    return [self.filtersMap makeSectionIndexArray];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
@@ -419,9 +421,9 @@
 #pragma mark UISearchBar Delegate Methods
 -(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
     self.isSearching = NO;
-    self.mySearchBar.text = @"";
+    self.searchBar.text = @"";
 
-    [self.mySearchBar resignFirstResponder];
+    [self.searchBar resignFirstResponder];
     [searchBar resignFirstResponder];
     [self.tableView reloadData];
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -440,7 +442,7 @@
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [self.mySearchBar resignFirstResponder];
+    [self.searchBar resignFirstResponder];
 }
 
 
@@ -455,7 +457,7 @@
         
         self.searchedResults = [[NSMutableArray alloc]init];
         
-        for (NSString * filterName in self.controller.cellData)
+        for (NSString * filterName in self.filtersMap.cellData)
         {
             NSRange filterNameRange = [filterName rangeOfString:searchText options:NSCaseInsensitiveSearch];
             
@@ -500,23 +502,23 @@
 -(void)animateToImageEditMode
 {
     
-    [self.controllerView setHidden:NO];
-    [__viewForImage setHidden:NO];
+    [self.filtersMapView setHidden:NO];
+    [_glkImgView setHidden:NO];
     
     
     [UIView animateWithDuration:0.75 delay:0 usingSpringWithDamping:0.65 initialSpringVelocity:0.74 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.tableView.alpha = 0;
         self.imageView.alpha = 0;
-        self.mySearchBar.alpha = 0;
+        self.searchBar.alpha = 0;
         
-        self.controllerView.alpha = 1.0;
-        __viewForImage.alpha = 1.0;
+        self.filtersMapView.alpha = 1.0;
+        _glkImgView.alpha = 1.0;
         
         } completion:^(BOOL finished) {
             
         [self.tableView setHidden:YES];
         [self.imageView setHidden:YES];
-            [self.mySearchBar setHidden:YES];
+            [self.searchBar setHidden:YES];
         self.isEditing = YES;
     }];
     
@@ -528,7 +530,7 @@
 -(void)animateToScrollFiltersMode
 {
     
-    if (self.controller.shouldKeepEditedImage) {
+    if (self.filtersMap.shouldKeepEditedImage) {
         NSLog(@"Should Keep edited Image");
         [self saveEditedImage];
         [self saveFullSizedImage];
@@ -539,25 +541,25 @@
     }
     
     
-    [self.controller reset];
+    [self.filtersMap reset];
     [self.tableView setHidden:NO];
     [self.imageView setHidden:NO];
-    [self.mySearchBar setHidden:NO];
+    [self.searchBar setHidden:NO];
     [self.tableView reloadData];
     
     [UIView animateWithDuration:0.75 delay:0 usingSpringWithDamping:0.65 initialSpringVelocity:0.74 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         
         self.tableView.alpha = 1.0;
         self.imageView.alpha = 1.0;
-        self.mySearchBar.alpha = 1.0;
+        self.searchBar.alpha = 1.0;
         
-        self.controllerView.alpha = 0;
-        __viewForImage.alpha = 0;
+        self.filtersMapView.alpha = 0;
+        _glkImgView.alpha = 0;
 
       
     } completion:^(BOOL finished) {
-        [self.controllerView setHidden:YES];
-        [__viewForImage setHidden:YES];
+        [self.filtersMapView setHidden:YES];
+        [_glkImgView setHidden:YES];
         self.isEditing = NO;
     }];
 
@@ -565,7 +567,7 @@
 
 -(void)saveFullSizedImage
 {
-    [self saveHighResImageWithParameters:self.controller.inputParamaters];
+    [self saveHighResImageWithParameters:self.filtersMap.inputParamaters];
 }
 
 
@@ -577,17 +579,17 @@
     
     if (image.size.width > image.size.height) {
         //NSLog(@"Wider");
-        resizedImage = [image resizedImageByWidth:(int)self.view.frame.size.width];
+        resizedImage = [image resizedImageByWidth:(int)kScreenW];
     }
     else
     {
         //NSLog(@"Taller");
-        resizedImage = [image resizedImageByHeight:(int)self.view.frame.size.width];
+        resizedImage = [image resizedImageByHeight:(int)kScreenW];
     }
     
-    NSString *resizeString = [NSString stringWithFormat:@"%ix%i#",(int)self.view.frame.size.width,(int)self.view.frame.size.width];
+    NSString *resizeString = [NSString stringWithFormat:@"%ix%i#", (int)kScreenW, (int)kScreenW];
     
-    UIImage *editResizedImage = [image resizedImageByMagick:resizeString];
+    UIImage *editResizedImage = [image resizedImageByMagick: resizeString];
     self.editImage = editResizedImage;
     NSLog(@"self.editImage.size: %@",NSStringFromCGSize(self.editImage.size));
     
@@ -597,18 +599,18 @@
  
     self.image = resizedImage;
     self.imageView.image = self.image;
-    self.backingBlurView.image = blurredImage;
+    self.bgBlurImgaeView.image = blurredImage;
     
 }
 
 -(void)saveEditedImage
 {
-    UIImage *newEditedImage = [self.controller getEditedImage];
+    UIImage *newEditedImage = [self.filtersMap getEditedImage];
     UIImage *newBlurredImage = [newEditedImage applyLightEffect];
     
     self.image = newEditedImage;
     self.imageView.image = self.image;
-    self.backingBlurView.image = newBlurredImage;
+    self.bgBlurImgaeView.image = newBlurredImage;
     self.editImage = self.image;
 }
 
@@ -619,10 +621,9 @@
 {
     CGPoint touchedPoint = [[touches anyObject] locationInView:self.view];
     
-    
     if (self.isEditing) {
-        if (CGRectContainsPoint(__viewForImage.frame, touchedPoint)) {
-            if (self.controller.isEditingOnImageView) {
+        if (CGRectContainsPoint(_glkImgView.frame, touchedPoint)) {
+            if (self.filtersMap.isEditingOnImageView) {
                 
             }
             else
@@ -844,7 +845,7 @@
 #pragma mark - Radial Gradient Image Creation(径向渐变)
 -(UIImage *)makeRadialGradientImage
 {
-    CGFloat w = self.view.frame.size.width;
+    CGFloat w = kScreenW;
     CGRect outRect = CGRectMake(0, 0, w, w);
     
     CIVector *inputCenter = [CIVector vectorWithX:w/2 Y:w/2];
@@ -881,7 +882,7 @@
 #pragma mark - CheckerBoard Image (西洋跳棋盘)
 -(UIImage*)makeCheckerBoardImage
 {
-    CGFloat w = self.view.frame.size.width;
+    CGFloat w = kScreenW;
     CGRect outRect = CGRectMake(0, 0, w, w);
     
     CIVector *inputCenter = [CIVector vectorWithX:w/2 Y:w/2];

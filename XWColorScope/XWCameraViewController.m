@@ -21,8 +21,15 @@
 @implementation XWCameraViewController
 @synthesize session,captureOutput;
 
+- (IBAction)closeAction:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"XWCamera";
     //1.创建会话层
     self.session = [[AVCaptureSession alloc] init];
     [self.session setSessionPreset:AVCaptureSessionPresetPhoto];
@@ -38,7 +45,7 @@
     [self.session addInput:captureInput];
     
     captureOutput = [[AVCaptureStillImageOutput alloc] init];
-    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG,AVVideoCodecKey,nil];
+    NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecJPEG, AVVideoCodecKey,nil];
     [captureOutput setOutputSettings:outputSettings];
     
     [self.session addOutput:captureOutput];

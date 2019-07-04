@@ -1,14 +1,14 @@
 //
-//  JDMColorControlObject.m
+//  ColorController.m
 //  CIFilter
 //
 //  Created by Justin Madewell on 11/22/15.
 //  Copyright © 2015 Justin Madewell. All rights reserved.
 //
 
-#import "JDMColorControlObject.h"
+#import "ColorController.h"
 
-@interface JDMColorControlObject ()
+@interface ColorController ()
 
 @property CGRect bounds;
 @property UIView *superView;
@@ -40,9 +40,9 @@
 
 
 
-@implementation JDMColorControlObject
+@implementation ColorController
 
--(id)initWithDelegate:(id<JDMColorControlObjectDelegate>)delegate inView:(UIView *)view withDefaultRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue andAlpha:(CGFloat)alpha withTitle:(NSString *)title description:(NSString *)description andKeyValue:(NSString *)keyValue
+-(id)initWithDelegate:(id<ColorControllerDelegate>)delegate inView:(UIView *)view withDefaultRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue andAlpha:(CGFloat)alpha withTitle:(NSString *)title description:(NSString *)description andKeyValue:(NSString *)keyValue
 {
     self = [super init];
     if(self)

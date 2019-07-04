@@ -1,15 +1,15 @@
 //
-//  JDMNumericControlObject.m
+//  NumericController.m
 //  CIFilter
 //
 //  Created by Justin Madewell on 11/22/15.
 //  Copyright © 2015 Justin Madewell. All rights reserved.
 //
 
-#import "JDMNumericControlObject.h"
+#import "NumericController.h"
 
 
-@interface JDMNumericControlObject ()
+@interface NumericController ()
 
 @property UIView *superView;
 @property UISlider *slider;
@@ -18,14 +18,18 @@
 @property CGFloat max;
 @property CGFloat def;
 
-
-
 @end
 
-@implementation JDMNumericControlObject
+@implementation NumericController
 
 
--(id)initWithDelegate:(id<JDMNumericControlObjectDelegate>)delegate inView:(UIView *)view withTitle:(NSString *)title withMin:(CGFloat)min andMax:(CGFloat)max withDefault:(CGFloat)defaultValue andKeyValue:(NSString *)keyValue
+-(id)initWithDelegate:(id<NumericControllerDelegate>)delegate
+               inView:(UIView *)view
+            withTitle:(NSString *)title
+              withMin:(CGFloat)min
+               andMax:(CGFloat)max
+          withDefault:(CGFloat)defaultValue
+          andKeyValue:(NSString *)keyValue
 {
     self = [super init];
     if(self)
@@ -38,7 +42,6 @@
         self.title = title;
         self.keyValue = keyValue;
         
-        
         [self setup];
     }
     return self;
@@ -50,8 +53,7 @@
     [UIView animateWithDuration:0 animations:^{
         self.slider.center = CGPointMake(self.superView.center.x, positionY);
     }];
-
-    
+ 
 }
 
 
@@ -60,7 +62,6 @@
     self.slider = [self makeSlider];
     self.slider.center = CGPointMake(self.superView.center.x, 20);
     [self.superView addSubview:self.slider];
-    
 }
 
 
@@ -114,8 +115,6 @@
 {
     
 }
-
-
 
 
 @end

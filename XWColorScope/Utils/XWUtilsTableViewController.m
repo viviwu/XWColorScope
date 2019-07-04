@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"Color Utils";
-    _tDataSource = @[@"ColorMapper"];
+    _tDataSource = @[@"ColorMapper", @"ImageMatting"];
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -35,7 +35,14 @@
 #pragma mark - Table view delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self performSegueWithIdentifier:@"ColorMapper" sender:self];
+    if (0 == indexPath.row) {
+        [self performSegueWithIdentifier:@"ColorMapper" sender:self];
+    }else if (1 == indexPath.row) {
+        [self performSegueWithIdentifier:@"ImageMatting" sender:self];
+    }else{
+    
+    }
+    
 }
 
 #pragma mark - Table view data source

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4914C1041C0BCF18007150C0 /* JDMCIVectorControlObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914C1031C0BCF18007150C0 /* JDMCIVectorControlObject.m */; };
+		4914C1041C0BCF18007150C0 /* LayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4914C1031C0BCF18007150C0 /* LayoutManager.m */; };
 		4923BC741BF8F34B00FEA18F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BC731BF8F34B00FEA18F /* main.m */; };
 		4923BC771BF8F34B00FEA18F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BC761BF8F34B00FEA18F /* AppDelegate.m */; };
 		4923BC7A1BF8F34B00FEA18F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BC791BF8F34B00FEA18F /* ViewController.m */; };
@@ -16,7 +16,7 @@
 		4923BC821BF8F34B00FEA18F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4923BC801BF8F34B00FEA18F /* LaunchScreen.storyboard */; };
 		4923BC8D1BF8F34B00FEA18F /* CIFilterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BC8C1BF8F34B00FEA18F /* CIFilterTests.m */; };
 		4923BC981BF8F34B00FEA18F /* CIFilterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BC971BF8F34B00FEA18F /* CIFilterUITests.m */; };
-		4923BD2A1BF9232400FEA18F /* JDMCIControllerObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BD291BF9232400FEA18F /* JDMCIControllerObject.m */; };
+		4923BD2A1BF9232400FEA18F /* CIFiltersMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 4923BD291BF9232400FEA18F /* CIFiltersMap.m */; };
 		49BCECA21CDFE7E400400025 /* BaseGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCEC471CDFE7E400400025 /* BaseGeometry.m */; };
 		49BCECA31CDFE7E400400025 /* BezierUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCEC491CDFE7E400400025 /* BezierUtilities.m */; };
 		49BCECA41CDFE7E400400025 /* SLColorArt.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCEC4C1CDFE7E400400025 /* SLColorArt.m */; };
@@ -49,9 +49,9 @@
 		49BCECC61CDFE7E400400025 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCEC9E1CDFE7E400400025 /* UIImage+ImageEffects.m */; };
 		49BCECC71CDFE7E400400025 /* XMLDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCECA11CDFE7E400400025 /* XMLDictionary.m */; };
 		49BCECCA1CDFE82F00400025 /* UIImage+ResizeMagick.m in Sources */ = {isa = PBXBuildFile; fileRef = 49BCECC91CDFE82F00400025 /* UIImage+ResizeMagick.m */; };
-		49C4D9531C16276400CF810B /* JDMBarCodeControlObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C4D9521C16276400CF810B /* JDMBarCodeControlObject.m */; };
-		49F229871C0191C200C52BDE /* JDMColorControlObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F229861C0191C200C52BDE /* JDMColorControlObject.m */; };
-		49F2298D1C028DF200C52BDE /* JDMNumericControlObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2298C1C028DF200C52BDE /* JDMNumericControlObject.m */; };
+		49C4D9531C16276400CF810B /* QRBarCodeControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C4D9521C16276400CF810B /* QRBarCodeControler.m */; };
+		49F229871C0191C200C52BDE /* ColorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F229861C0191C200C52BDE /* ColorController.m */; };
+		49F2298D1C028DF200C52BDE /* NumericController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49F2298C1C028DF200C52BDE /* NumericController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,8 +72,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4914C1021C0BCF18007150C0 /* JDMCIVectorControlObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMCIVectorControlObject.h; sourceTree = "<group>"; };
-		4914C1031C0BCF18007150C0 /* JDMCIVectorControlObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMCIVectorControlObject.m; sourceTree = "<group>"; };
+		4914C1021C0BCF18007150C0 /* LayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LayoutManager.h; sourceTree = "<group>"; };
+		4914C1031C0BCF18007150C0 /* LayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LayoutManager.m; sourceTree = "<group>"; };
 		4923BC6F1BF8F34B00FEA18F /* CIFilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIFilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4923BC731BF8F34B00FEA18F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4923BC751BF8F34B00FEA18F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -90,8 +90,8 @@
 		4923BC931BF8F34B00FEA18F /* CIFilterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CIFilterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4923BC971BF8F34B00FEA18F /* CIFilterUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIFilterUITests.m; sourceTree = "<group>"; };
 		4923BC991BF8F34B00FEA18F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4923BD281BF9232400FEA18F /* JDMCIControllerObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMCIControllerObject.h; sourceTree = "<group>"; };
-		4923BD291BF9232400FEA18F /* JDMCIControllerObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMCIControllerObject.m; sourceTree = "<group>"; };
+		4923BD281BF9232400FEA18F /* CIFiltersMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CIFiltersMap.h; sourceTree = "<group>"; };
+		4923BD291BF9232400FEA18F /* CIFiltersMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CIFiltersMap.m; sourceTree = "<group>"; };
 		49BCEC461CDFE7E400400025 /* BaseGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseGeometry.h; sourceTree = "<group>"; };
 		49BCEC471CDFE7E400400025 /* BaseGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseGeometry.m; sourceTree = "<group>"; };
 		49BCEC481CDFE7E400400025 /* BezierUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BezierUtilities.h; sourceTree = "<group>"; };
@@ -161,13 +161,13 @@
 		49BCECA11CDFE7E400400025 /* XMLDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLDictionary.m; sourceTree = "<group>"; };
 		49BCECC81CDFE82F00400025 /* UIImage+ResizeMagick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ResizeMagick.h"; sourceTree = "<group>"; };
 		49BCECC91CDFE82F00400025 /* UIImage+ResizeMagick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ResizeMagick.m"; sourceTree = "<group>"; };
-		49C4D9511C16276400CF810B /* JDMBarCodeControlObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMBarCodeControlObject.h; sourceTree = "<group>"; };
-		49C4D9521C16276400CF810B /* JDMBarCodeControlObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMBarCodeControlObject.m; sourceTree = "<group>"; };
+		49C4D9511C16276400CF810B /* QRBarCodeControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRBarCodeControler.h; sourceTree = "<group>"; };
+		49C4D9521C16276400CF810B /* QRBarCodeControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRBarCodeControler.m; sourceTree = "<group>"; };
 		49E495ED1C0CCA0C0009EB8B /* JDMCIController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JDMCIController.h; sourceTree = "<group>"; };
-		49F229851C0191C200C52BDE /* JDMColorControlObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMColorControlObject.h; sourceTree = "<group>"; };
-		49F229861C0191C200C52BDE /* JDMColorControlObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMColorControlObject.m; sourceTree = "<group>"; };
-		49F2298B1C028DF200C52BDE /* JDMNumericControlObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMNumericControlObject.h; sourceTree = "<group>"; };
-		49F2298C1C028DF200C52BDE /* JDMNumericControlObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDMNumericControlObject.m; sourceTree = "<group>"; };
+		49F229851C0191C200C52BDE /* ColorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorController.h; sourceTree = "<group>"; };
+		49F229861C0191C200C52BDE /* ColorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorController.m; sourceTree = "<group>"; };
+		49F2298B1C028DF200C52BDE /* NumericController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumericController.h; sourceTree = "<group>"; };
+		49F2298C1C028DF200C52BDE /* NumericController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumericController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,16 +199,16 @@
 			isa = PBXGroup;
 			children = (
 				49E495ED1C0CCA0C0009EB8B /* JDMCIController.h */,
-				49C4D9511C16276400CF810B /* JDMBarCodeControlObject.h */,
-				49C4D9521C16276400CF810B /* JDMBarCodeControlObject.m */,
-				4914C1021C0BCF18007150C0 /* JDMCIVectorControlObject.h */,
-				4914C1031C0BCF18007150C0 /* JDMCIVectorControlObject.m */,
-				49F2298B1C028DF200C52BDE /* JDMNumericControlObject.h */,
-				49F2298C1C028DF200C52BDE /* JDMNumericControlObject.m */,
-				49F229851C0191C200C52BDE /* JDMColorControlObject.h */,
-				49F229861C0191C200C52BDE /* JDMColorControlObject.m */,
-				4923BD281BF9232400FEA18F /* JDMCIControllerObject.h */,
-				4923BD291BF9232400FEA18F /* JDMCIControllerObject.m */,
+				49C4D9511C16276400CF810B /* QRBarCodeControler.h */,
+				49C4D9521C16276400CF810B /* QRBarCodeControler.m */,
+				4914C1021C0BCF18007150C0 /* LayoutManager.h */,
+				4914C1031C0BCF18007150C0 /* LayoutManager.m */,
+				49F2298B1C028DF200C52BDE /* NumericController.h */,
+				49F2298C1C028DF200C52BDE /* NumericController.m */,
+				49F229851C0191C200C52BDE /* ColorController.h */,
+				49F229861C0191C200C52BDE /* ColorController.m */,
+				4923BD281BF9232400FEA18F /* CIFiltersMap.h */,
+				4923BD291BF9232400FEA18F /* CIFiltersMap.m */,
 				4923BC711BF8F34B00FEA18F /* CIFilter */,
 				4923BC8B1BF8F34B00FEA18F /* CIFilterTests */,
 				4923BC961BF8F34B00FEA18F /* CIFilterUITests */,
@@ -505,13 +505,13 @@
 				49BCECAF1CDFE7E400400025 /* _FBTweakCategoryViewController.m in Sources */,
 				49BCECB11CDFE7E400400025 /* _FBTweakColorViewController.m in Sources */,
 				49BCECB61CDFE7E400400025 /* FBTweak.m in Sources */,
-				4914C1041C0BCF18007150C0 /* JDMCIVectorControlObject.m in Sources */,
+				4914C1041C0BCF18007150C0 /* LayoutManager.m in Sources */,
 				49BCECA91CDFE7E400400025 /* _FBColorUtils.m in Sources */,
 				49BCECBB1CDFE7E400400025 /* FBTweakStore.m in Sources */,
 				49BCECC51CDFE7E400400025 /* SceneKit Additions.m in Sources */,
 				49BCECC71CDFE7E400400025 /* XMLDictionary.m in Sources */,
 				49BCECB71CDFE7E400400025 /* FBTweakCategory.m in Sources */,
-				49C4D9531C16276400CF810B /* JDMBarCodeControlObject.m in Sources */,
+				49C4D9531C16276400CF810B /* QRBarCodeControler.m in Sources */,
 				49BCECCA1CDFE82F00400025 /* UIImage+ResizeMagick.m in Sources */,
 				49BCECBA1CDFE7E400400025 /* FBTweakShakeWindow.m in Sources */,
 				49BCECA81CDFE7E400400025 /* _FBColorComponentCell.m in Sources */,
@@ -524,10 +524,10 @@
 				49BCECA31CDFE7E400400025 /* BezierUtilities.m in Sources */,
 				4923BC771BF8F34B00FEA18F /* AppDelegate.m in Sources */,
 				49BCECBD1CDFE7E400400025 /* JDMGradientLayer.m in Sources */,
-				49F2298D1C028DF200C52BDE /* JDMNumericControlObject.m in Sources */,
+				49F2298D1C028DF200C52BDE /* NumericController.m in Sources */,
 				49BCECA21CDFE7E400400025 /* BaseGeometry.m in Sources */,
 				49BCECA51CDFE7E400400025 /* UIImage+ColorArt.m in Sources */,
-				49F229871C0191C200C52BDE /* JDMColorControlObject.m in Sources */,
+				49F229871C0191C200C52BDE /* ColorController.m in Sources */,
 				49BCECB01CDFE7E400400025 /* _FBTweakCollectionViewController.m in Sources */,
 				49BCECB41CDFE7E400400025 /* _FBTweakDictionaryViewController.m in Sources */,
 				4923BC741BF8F34B00FEA18F /* main.m in Sources */,
@@ -540,7 +540,7 @@
 				49BCECB21CDFE7E400400025 /* _FBTweakColorViewControllerHSBDataSource.m in Sources */,
 				49BCECAE1CDFE7E400400025 /* _FBTweakBindObserver.m in Sources */,
 				49BCECC61CDFE7E400400025 /* UIImage+ImageEffects.m in Sources */,
-				4923BD2A1BF9232400FEA18F /* JDMCIControllerObject.m in Sources */,
+				4923BD2A1BF9232400FEA18F /* CIFiltersMap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -86,6 +86,7 @@
         // ,kCICategoryBuiltIn      //内建内建
         // ,kCICategoryFilterGenerator;
         
+        
         for ( NSString *category in cats)
         {
             NSArray<NSString *> * filterNames = [CIFilter filterNamesInCategories:@[category]];

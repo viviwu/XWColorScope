@@ -22,7 +22,7 @@
     [super viewDidLoad];
     self.title = @"ColorMapper";
     [self colorGradientDraw];
-//    [self colorGradientLayerDraw];
+    //    [self colorGradientLayerDraw];
     // Do any additional setup after loading the view.
 }
 
